@@ -5,6 +5,14 @@
 
 	`longest chain wins`
 */
+package main
+
+import (
+		"crypto/sha256"
+		"strconv"
+		"bytes"
+		"time"
+)
 
 type Block struct {
 	Timestamp     int64
@@ -23,7 +31,7 @@ func (b *Block) SetHash() {
 	headers := bytes.Join(
 		// Data, PrevBlockHash, and Timestamp are byte arrays
 		[][]byte{b.PrevBlockHash,
-			b.data, timestamp},
+			b.Data, timestamp},
 		[]byte{},
 	)
 
