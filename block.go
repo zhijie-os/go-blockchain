@@ -15,10 +15,11 @@ import (
 )
 
 type Block struct {
-	Timestamp     int64
-	Data          []byte
-	PrevBlockHash []byte
-	Hash          []byte
+	Timestamp		int64
+	Data			[]byte
+	PrevBlockHash	[]byte
+	Hash			[]byte
+	Nonce			int
 }
 
 // Calculate and set the hash for a block
@@ -45,8 +46,11 @@ func (b *Block) SetHash() {
 // Block factory function
 func NewBlock(data string, prevBlockHash []byte) *Block {
 	// create new block
-	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}}
-	// set block hash
-	block.SetHash()
+	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+	pow := NewProofOfWork(block)
+	nonce, hash := pow.Run()
+	block.Hash = hash[:]
+	block.Nonce = nonce
+
 	return block
 }
