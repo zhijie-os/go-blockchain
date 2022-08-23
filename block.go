@@ -8,18 +8,18 @@
 package main
 
 import (
-		"crypto/sha256"
-		"strconv"
-		"bytes"
-		"time"
+	"bytes"
+	"crypto/sha256"
+	"strconv"
+	"time"
 )
 
 type Block struct {
-	Timestamp		int64
-	Data			[]byte
-	PrevBlockHash	[]byte
-	Hash			[]byte
-	Nonce			int
+	Timestamp     int64
+	Data          []byte
+	PrevBlockHash []byte
+	Hash          []byte
+	Nonce         int
 }
 
 // Calculate and set the hash for a block
@@ -47,7 +47,9 @@ func (b *Block) SetHash() {
 func NewBlock(data string, prevBlockHash []byte) *Block {
 	// create new block
 	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+	// create the work for mining
 	pow := NewProofOfWork(block)
+	// mine the block
 	nonce, hash := pow.Run()
 	block.Hash = hash[:]
 	block.Nonce = nonce

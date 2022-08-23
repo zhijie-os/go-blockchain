@@ -16,3 +16,6 @@ Bitcoin uses Hashcash, a PoW algorithm:
 2. Add a counter(starts at 0) to it.
 3. Get a hash of the `data + counter` combination.
 4. Check that the hash meets certain requirements. If it doesn't, repeat steps 3 and 4.
+
+The `counter` is called `nonce` and treated as a solution to the PoW problem's answer.
+

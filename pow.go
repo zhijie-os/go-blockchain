@@ -1,11 +1,19 @@
 package main
 
-const targetBits = 24 // difficulty
+import (
+	"bytes"
+	"crypto/sha256"
+	"fmt"
+	"math"
+	"math/big"
+)
+
+const targetBits = 16 // difficulty
 const maxNonce = math.MaxInt64
 
 type ProofOfWork struct {
-	block	*Block
-	target	*big.Int
+	block  *Block
+	target *big.Int
 }
 
 func NewProofOfWork(b *Block) *ProofOfWork {
@@ -19,11 +27,10 @@ func NewProofOfWork(b *Block) *ProofOfWork {
 	return pow
 }
 
-
 // think PoW struct as class, (pow *ProofOfWork) indicates it is a `method` of PoW `class`
 func (pow *ProofOfWork) prepareData(nonce int) []byte {
-	// concatenate prevBlockHash,  Data, Timestamp, targetBits, and nounce
-	data := bytes.join(
+	// concatenate prevBlockHash, Data, Timestamp, targetBits, and nonce
+	data := bytes.Join(
 		[][]byte{
 			pow.block.PrevBlockHash,
 			pow.block.Data,
@@ -33,27 +40,27 @@ func (pow *ProofOfWork) prepareData(nonce int) []byte {
 		},
 		[]byte{},
 	)
-
 	return data
 }
 
 // `mine` the block
 func (pow *ProofOfWork) Run() (int, []byte) {
-	var hashInt big.Int	// the integer representation of the hash
-	var hash [32]byte // store the sha256 result
-	nounce := 0		// counter starts at 0
+	var hashInt big.Int // the integer representation of the hash
+	var hash [32]byte   // store the sha256 result
+	nonce := 0          // counter starts at 0
 
 	fmt.Printf("Mining the block containing \"%s\"\n", pow.block.Data)
-	
+
 	// brute force solving the problem
-	for nonce < maxNounce {
+	for nonce < maxNonce {
 		// prepare the byte array
 		data := pow.prepareData(nonce)
 		// hashing
+		// the hash is on (prevBlockHash, Data, Timestamp, targetBits, nonce)
 		hash = sha256.Sum256(data)
 		fmt.Printf("\r%x", hash)
 		hashInt.SetBytes(hash[:])
-		
+
 		// compare result
 		if hashInt.Cmp(pow.target) == -1 {
 			break
@@ -66,4 +73,15 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 	return nonce, hash[:]
 }
 
+func (pow *ProofOfWork) Validate() bool {
+	var hashInt big.Int
 
+	data := pow.prepareData(pow.block.Nonce)
+	hash := sha256.Sum256(data)
+	hashInt.SetBytes(hash[:])
+
+	// if < the target, then valid
+	isValid := hashInt.Cmp(pow.target) == -1
+
+	return isValid
+}
