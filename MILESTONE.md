@@ -19,3 +19,55 @@ Bitcoin uses Hashcash, a PoW algorithm:
 
 The `counter` is called `nonce` and treated as a solution to the PoW problem's answer.
 
+
+# Persistence and CLI
+
+One can think blockchain as a distributed database. A "database" should be persistent and always on.
+
+The <ins>*Bitcoin Core*</ins>(developerd by Satoshi Nakamoto) uses <ins>LevelDB</ins>. However, I am going to use *BoltDB*.
+
+*Bitcoin Core* uses two "buckets" to store data:
+
+1. `blocks` stores metadata describing all the blocks in a chian.
+2. `chainstate` stores the state of a blockchain.
+
+In `blocks`, the `key-value` pairs like look:
+
+```   
+'b' + 32-byte block hash -> block index record. Each record stores:
+    * The block header
+    * The height.
+    * The number of transactions.
+    * To what extent this block is validated.
+    * In which file, and where in that file, the block data is stored.
+    * In which file, and where in that file, the undo data is stored.
+```
+  
+```   
+'f' + 4-byte file number -> file information record. Each record stores:
+    * The number of blocks stored in the block file with that number.
+    * The size of the block file with that number ($DATADIR/blocks/blkNNNNN.dat).
+    * The size of the undo file with that number ($DATADIR/blocks/revNNNNN.dat).
+    * The lowest and highest height of blocks stored in the block file with that number.
+    * The lowest and highest timestamp of blocks stored in the block file with that number.
+```
+  
+```   
+'l' -> 4-byte file number: the last block file number used.
+```
+
+```
+'R' -> 1-byte boolean ('1' if true): whether we're in the process of reindexing.
+```
+
+```
+'F' + 1-byte flag name length + flag name string -> 1 byte boolean ('1' if true, '0' if false): various flags that can be on or off. Currently defined flags include:
+    * 'txindex': Whether the transaction index is enabled.
+```
+
+```
+'t' + 32-byte transaction hash -> transaction index record. These are optional and only exist if 'txindex' is enabled (see above). Each record stores:
+    * Which block file number the transaction is stored in.
+    * Which offset into that file the block the transaction is part of is stored at.
+    * The offset from the start of that block to the position where that transaction itself is stored.
+```
