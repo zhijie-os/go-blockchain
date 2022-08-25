@@ -24,6 +24,8 @@ The `counter` is called `nonce` and treated as a solution to the PoW problem's a
 
 One can think blockchain as a distributed database. A "database" should be persistent and always on.
 
+
+## Database
 The <ins>*Bitcoin Core*</ins>(developerd by Satoshi Nakamoto) uses <ins>LevelDB</ins>. However, I am going to use *BoltDB*.
 
 *Bitcoin Core* uses two "buckets" to store data:
@@ -31,6 +33,7 @@ The <ins>*Bitcoin Core*</ins>(developerd by Satoshi Nakamoto) uses <ins>LevelDB<
 1. `blocks` stores metadata describing all the blocks in a chian.
 2. `chainstate` stores the state of a blockchain.
 
+### Storage Format
 In `blocks`, the `key-value` pairs like look:
 
 ```   
@@ -71,3 +74,11 @@ In `blocks`, the `key-value` pairs like look:
     * Which offset into that file the block the transaction is part of is stored at.
     * The offset from the start of that block to the position where that transaction itself is stored.
 ```
+
+This is very detailed *Bitcoin Core*'s implementation. However, this project serves as learning purpose, some simplifications can be done.
+We are only going to store:
+
+1. `32-byte block hash -> Block structure (serialized)`
+2. `l -> the hash of the last block in a chain`
+
+

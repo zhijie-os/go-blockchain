@@ -10,6 +10,8 @@ package main
 import (
 	"bytes"
 	"crypto/sha256"
+	"encoding/gob"
+	"log"
 	"strconv"
 	"time"
 )
@@ -55,4 +57,34 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 	block.Nonce = nonce
 
 	return block
+}
+
+// turn a block and its information into byte stream
+func (b *Block) Serialize() []byte {
+	var result bytes.Buffer
+	// create gob encoder
+	encoder := gob.NewEncoder(&result)
+	// encode the block
+	err := encoder.Encode(b)
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return result.Bytes()
+}
+
+// turn an encoding of block into plaintext of block
+func DeserializeBlock(raw []byte) *Block {
+	var block Block
+	// create gob decoder
+	decoder := gob.NewDecoder(bytes.NewReader(raw))
+	// decode the block
+	err := decoder.Decode(&block)
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	return &block
 }
