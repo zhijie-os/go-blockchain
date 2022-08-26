@@ -81,4 +81,24 @@ We are only going to store:
 1. `32-byte block hash -> Block structure (serialized)`
 2. `l -> the hash of the last block in a chain`
 
+# Transactions
+
+In *Bitcoin*, payments are realized in different ways:
+
+1. No accounts.
+2. No balances.
+3. No addresses.
+4. No coins.
+5. No senders and receivers.
+
+Transactions do not transfer money from one address to another. No field holds account balance. There are only *transactions*.
+
+## Input and Output
+
+Transaction inputs reference outputs of previous transactions. Transaction
+outputs are where the coins stored.
+
+1. There are outputs that are not linked to inputs.
+2. In one transaction, inputs can reference outputs from multiple transactions.
+3. An input must reference an output.
 

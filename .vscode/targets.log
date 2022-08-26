@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug 25 00:22:33 2022
+# Make data base, printed on Thu Aug 25 21:13:44 2022
 
 # Variables
 
@@ -16,8 +16,6 @@ make: *** No rule to make target 'all'.  Stop.
 GDK_BACKEND = x11
 # environment
 LC_ALL = C
-# environment
-NO_AT_BRIDGE = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
@@ -30,8 +28,6 @@ WINDOWPATH = 2
 MAKE_COMMAND := make
 # environment
 QT_ACCESSIBILITY = 1
-# environment
-VSCODE_GIT_ASKPASS_EXTRA_ARGS = --ms-enable-electron-run-as-node
 # environment
 GOPATH = /home/notauser/go
 # automatic
@@ -63,7 +59,7 @@ XAUTHORITY = /run/user/1000/gdm/Xauthority
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.94
+GNOME_TERMINAL_SERVICE = :1.130
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -85,21 +81,19 @@ XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu-xorg:/etc/xdg
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-GIT_ASKPASS = /usr/share/code/resources/app/extensions/git/dist/askpass.sh
-# environment
 XDG_SESSION_DESKTOP = ubuntu-xorg
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 22097
+VSCODE_PID = 7412
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/notadevice:@/tmp/.ICE-unix/2625,unix/notadevice:/tmp/.ICE-unix/2625
+SESSION_MANAGER = local/notadevice:@/tmp/.ICE-unix/2792,unix/notadevice:/tmp/.ICE-unix/2792
 # automatic
 *F = $(notdir $*)
 # environment
@@ -121,9 +115,9 @@ MAKECMDGOALS := all
 # environment
 XMODIFIERS = @im=ibus
 # environment
-SHLVL = 2
+SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/68f6f621_a709_4ea9_a55a_bd9889100514
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/01c62941_ecc9_46d3_a8d5_ed65a0f01cd1
 # environment
 MAKELEVEL := 0
 # default
@@ -133,19 +127,11 @@ PATH = /home/notauser/.cargo/bin:/home/notauser/.local/bin:/usr/local/sbin:/usr/
 # default
 MAKEFILES := 
 # environment
-VSCODE_GIT_IPC_HANDLE = /run/user/1000/vscode-git-1311aba023.sock
-# environment
 LANGUAGE = en_CA:en
-# environment
-VSCODE_GIT_ASKPASS_NODE = /usr/share/code/code
 # automatic
 ^F = $(notdir $^)
 # environment
-VSCODE_GIT_ASKPASS_MAIN = /usr/share/code/resources/app/extensions/git/dist/askpass-main.js
-# environment
 USERNAME = notauser
-# environment
-TERM_PROGRAM = vscode
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # automatic
@@ -159,7 +145,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # environment
 DESKTOP_SESSION = ubuntu-xorg
 # environment
-ORIGINAL_XDG_CURRENT_DESKTOP = Unity
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -167,7 +153,7 @@ LOGNAME = notauser
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 2674
+SYSTEMD_EXEC_PID = 2815
 # environment
 DISPLAY = :0
 # environment
@@ -219,11 +205,9 @@ VTE_VERSION = 6800
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
-TERM_PROGRAM_VERSION = 1.70.2
-# environment
 GDMSESSION = ubuntu-xorg
 # variable set hash-table stats:
-# Load=105/1024=10%, Rehash=0, Collisions=9/135=7%
+# Load=97/1024=9%, Rehash=0, Collisions=9/127=7%
 
 # Pattern-specific Variable Values
 
@@ -231,9 +215,9 @@ GDMSESSION = ubuntu-xorg
 
 # Directories
 
-# . (device 66310, inode 5259032): 17 files, no impossibilities.
+# . (device 66310, inode 5259032): 21 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -283,13 +267,12 @@ build:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 197 B / avg = 8 B
-# current buf: size = 8162 B / used = 197 B / count = 24 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 28 / storage = 278 B / avg = 9 B
+# current buf: size = 8162 B / used = 278 B / count = 28 / avg = 9 B
 
-# strcache performance: lookups = 30 / hit rate = 20%
+# strcache performance: lookups = 34 / hit rate = 17%
 # hash-table stats:
- 
-# Load=24/8192=0%, Rehash=0, Collisions=0/30=0%
-# Finished Make data base on Thu Aug 25 00:22:33 2022
+# Load=28/8192=0%, Rehash=0, Collisions=0/34=0%
+# Finished Make data base on Thu Aug 25 21:13:44 2022
 
  
