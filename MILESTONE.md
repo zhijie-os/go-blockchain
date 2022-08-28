@@ -102,3 +102,10 @@ outputs are where the coins stored.
 2. In one transaction, inputs can reference outputs from multiple transactions.
 3. An input must reference an output.
 
+## The egg
+
+One might ask, what come first: inputs or outputs?
+
+In *Bitcoin*, outputs come before inputs.
+
+When a miner starts mining a block, it adds a *coinbase transaction* to it. A coinbase transaction is special type of transactions, which doesn't require previously existing outputs. It creates outputs(i.e, "coins") out of nowhere.

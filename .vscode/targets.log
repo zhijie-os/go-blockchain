@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug 25 21:13:44 2022
+# Make data base, printed on Sat Aug 27 19:05:29 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ XAUTHORITY = /run/user/1000/gdm/Xauthority
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.130
+GNOME_TERMINAL_SERVICE = :1.112
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -87,13 +87,13 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 7412
+VSCODE_PID = 7439
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/notadevice:@/tmp/.ICE-unix/2792,unix/notadevice:/tmp/.ICE-unix/2792
+SESSION_MANAGER = local/notadevice:@/tmp/.ICE-unix/2717,unix/notadevice:/tmp/.ICE-unix/2717
 # automatic
 *F = $(notdir $*)
 # environment
@@ -117,7 +117,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/01c62941_ecc9_46d3_a8d5_ed65a0f01cd1
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/bec9fbe5_38ad_4c0a_aad5_f5cc0d3c2ae7
 # environment
 MAKELEVEL := 0
 # default
@@ -153,7 +153,7 @@ LOGNAME = notauser
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 2815
+SYSTEMD_EXEC_PID = 2963
 # environment
 DISPLAY = :0
 # environment
@@ -273,6 +273,6 @@ build:
 # strcache performance: lookups = 34 / hit rate = 17%
 # hash-table stats:
 # Load=28/8192=0%, Rehash=0, Collisions=0/34=0%
-# Finished Make data base on Thu Aug 25 21:13:44 2022
+# Finished Make data base on Sat Aug 27 19:05:29 2022
 
  
