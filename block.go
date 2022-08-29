@@ -16,9 +16,11 @@ import (
 	"time"
 )
 
+// every block must store at least one transaction and
+// it’s not possible to mine blocks without transactions
 type Block struct {
 	Timestamp     int64
-	Data          []byte
+	Transaction   []*Transaction
 	PrevBlockHash []byte
 	Hash          []byte
 	Nonce         int
@@ -46,9 +48,9 @@ func (b *Block) SetHash() {
 }
 
 // Block factory function
-func NewBlock(data string, prevBlockHash []byte) *Block {
+func NewBlock(transactions []*Transaction, data string, prevBlockHash []byte) *Block {
 	// create new block
-	block := &Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+	block := &Block{time.Now().Unix(), transactions, prevBlockHash, []byte{}, 0}
 	// create the work for mining
 	pow := NewProofOfWork(block)
 	// mine the block

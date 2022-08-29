@@ -54,10 +54,10 @@ func (bc *Blockchain) AddBlock(data string) {
 }
 
 // first block in the chain is called "genesis" block
-func NewGenesisBlock() *Block {
+func NewGenesisBlock(coinbase *Transaction) *Block {
 	// the data is "Genesis Block"
 	// no previous hash
-	return NewBlock("Genesis Block", []byte{})
+	return NewBlock([]*Transaction{coinbase}, []byte{})
 }
 
 /* create a new blockchain:
