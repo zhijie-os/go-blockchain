@@ -60,19 +60,57 @@ func NewGenesisBlock(coinbase *Transaction) *Block {
 	return NewBlock([]*Transaction{coinbase}, []byte{})
 }
 
-/* create a new blockchain:
+func CreateBlockchain(address string) *Blockchain {
+	var tip []byte
 
-   Open a DB file.
-   Check if there’s a blockchain stored in it.
-   If there’s a blockchain:
-       Create a new Blockchain instance.
-       Set the tip of the Blockchain instance to the last block hash stored in the DB.
-   If there’s no existing blockchain:
-       Create the genesis block.
-       Store in the DB.
-       Save the genesis block’s hash as the last block hash.
-       Create a new Blockchain instance with its tip pointing at the genesis block.
+	// opne boltDB
+	db, err := bolt.Open(dbFile, 0600, nil)
 
+	if err != nil {
+		log.Panic(err)
+	}
+
+	err = db.Update(func(tx *bolt.Tx) error {
+		// check if there are blocks Bucket already
+		b := tx.Bucket([]byte(blocksBucket))
+		// if no bucket, create
+		if b == nil {
+			// create the genesis block
+			genesis := NewGenesisBlock()
+			// create bucket
+			b, err := tx.CreateBucket([]byte(blocksBucket))
+			if err != nil {
+				log.Panic(err)
+			}
+			// put hash -> serialized infor into the DB
+			err = b.Put(genesis.Hash, genesis.Serialize())
+			// put the 'l' <=> 'last block' -> genesis.Hash; that is saying, the last block on the chain is the genesis block
+			err = b.Put([]byte("l"), genesis.Hash)
+			tip = genesis.Hash
+		} else {
+			tip = b.Get([]byte("l"))
+		}
+
+		return nil
+	})
+
+	bc := Blockchain{tip, db}
+	return &bc
+}
+
+/*
+create a new blockchain:
+
+	Open a DB file.
+	Check if there’s a blockchain stored in it.
+	If there’s a blockchain:
+	    Create a new Blockchain instance.
+	    Set the tip of the Blockchain instance to the last block hash stored in the DB.
+	If there’s no existing blockchain:
+	    Create the genesis block.
+	    Store in the DB.
+	    Save the genesis block’s hash as the last block hash.
+	    Create a new Blockchain instance with its tip pointing at the genesis block.
 */
 func NewBlockchain() *Blockchain {
 	var tip []byte
@@ -112,37 +150,9 @@ func NewBlockchain() *Blockchain {
 	return &bc
 }
 
-// we need an iterator to iterate through the chain
-type BlockchainIterator struct {
-	currentHash []byte
-	db          *bolt.DB
-}
-
 // get iterator of a blockchain
 func (bc *Blockchain) Iterator() *BlockchainIterator {
 	bci := &BlockchainIterator{bc.tip, bc.db}
 
 	return bci
-}
-
-func (i *BlockchainIterator) Next() *Block {
-	var block *Block
-
-	err := i.db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte(blocksBucket))
-		// get the byte stream of the current block
-		encodedBlock := b.Get(i.currentHash)
-		// deserialize the information to plaintext
-		block = DeserializeBlock(encodedBlock)
-		return nil
-	})
-
-	if err != nil {
-		log.Panic(err)
-	}
-
-	// previous block hash becomes next iteration's block
-	i.currentHash = block.PrevBlockHash
-	// return current iteration's block
-	return block
 }
