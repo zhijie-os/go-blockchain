@@ -12,7 +12,6 @@ import (
 	"crypto/sha256"
 	"encoding/gob"
 	"log"
-	"strconv"
 	"time"
 )
 
@@ -26,38 +25,40 @@ type Block struct {
 	Nonce         int
 }
 
-func (b *Block) HashTransaction() []byte {
+func (b *Block) HashTransactions() []byte {
 	var txHashes [][]byte
 	var txHash [32]byte
 
+	// concatenate all the hashes of transactions
 	for _, tx := range b.Transactions {
-		txHashes = append(txHashes, tx.ID)
+		txHashes = append(txHashes, tx.GetHash())
 	}
+	// create single hash of the concatenated hashes
 	txHash = sha256.Sum256(bytes.Join(txHashes, []byte{}))
 
 	return txHash[:]
 }
 
-// Calculate and set the hash for a block
-func (b *Block) SetHash() {
-	// := is for initialization, equivalent to var ... = ...
+// // Calculate and set the hash for a block
+// func (b *Block) SetHash() {
+// 	// := is for initialization, equivalent to var ... = ...
 
-	// FormatInt returns the string of the block's timestamp in base 10, then store it as byte array
-	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
-	// concate PreviousBlockHash, current Data, and Timestamp to create Hash
-	headers := bytes.Join(
-		// Data, PrevBlockHash, and Timestamp are byte arrays
-		[][]byte{b.PrevBlockHash,
-			b.Data, timestamp},
-		[]byte{},
-	)
+// 	// FormatInt returns the string of the block's timestamp in base 10, then store it as byte array
+// 	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
+// 	// concate PreviousBlockHash, current Data, and Timestamp to create Hash
+// 	headers := bytes.Join(
+// 		// Data, PrevBlockHash, and Timestamp are byte arrays
+// 		[][]byte{b.PrevBlockHash,
+// 			b.Data, timestamp},
+// 		[]byte{},
+// 	)
 
-	// calculate the current hash
-	hash := sha256.Sum256(headers)
+// 	// calculate the current hash
+// 	hash := sha256.Sum256(headers)
 
-	// set Hash value
-	b.Hash = hash[:]
-}
+// 	// set Hash value
+// 	b.Hash = hash[:]
+// }
 
 // Block factory function
 func NewBlock(transactions []*Transaction, prevBlockHash []byte) *Block {

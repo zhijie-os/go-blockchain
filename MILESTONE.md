@@ -109,3 +109,7 @@ One might ask, what come first: inputs or outputs?
 In *Bitcoin*, outputs come before inputs.
 
 When a miner starts mining a block, it adds a *coinbase transaction* to it. A coinbase transaction is special type of transactions, which doesn't require previously existing outputs. It creates outputs(i.e, "coins") out of nowhere.
+
+
+## Transaction Verification
+Bitcoin uses a more elaborate technique: it represents all transactions containing in a block as a Merkle tree and uses the root hash of the tree in the Proof-of-Work system. This approach allows to quickly check if a block contains certain transaction, having only just the root hash and without downloading all the transactions.

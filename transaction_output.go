@@ -9,3 +9,7 @@ type TXOutput struct {
 	Value        int
 	ScriptPubKey string // locking value with a puzzle
 }
+
+func (out *TXOutput) CanBeUnlockedWith(unlockingData string) bool {
+	return out.ScriptPubKey == unlockingData
+}
